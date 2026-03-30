@@ -7,17 +7,16 @@ import Latelier from './containers/Checkout/latelier';
 
 function App() {
   return (
-    <Router>
-        <Routes>
-          <Route path="" element={<Entrance />} />
-          <Route path="/heritage" element={<Heritage />} />
-          <Route path="/entrance" element={<Entrance />} />
-          <Route path="/cellar" element={<Cellar />} />
-          <Route path="/masterpiece" element={<Masterpiece />} />
-          <Route path="/latelier" element={<Latelier />} />
-        </Routes>
+    <Router basename="/EXProvenance/">
+      <Routes>
+        <Route path="/" element={<Entrance />} />
+        <Route path="/heritage" element={<Heritage />} />
+        <Route path="/entrance" element={<Entrance />} />
+        <Route path="/cellar" element={<Cellar />} />
+        <Route path="/masterpiece" element={<Masterpiece />} />
+        <Route path="/latelier" element={<Latelier />} />
+      </Routes>
     </Router>
-
   );
 }
 
