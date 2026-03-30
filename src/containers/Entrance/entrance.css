@@ -1,0 +1,571 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+
+:root {
+    --Obsidian-Black: #060411;
+    --Cognac-Gold: #400106;
+    --Stone-Grey: #2A2A2A;
+    --Parchment: #D4D4D2;
+    --Pure-White: #FFFFFF;
+    --Luxury-Black: #0a0a0a;
+    --Luxury-Grey: #f2f2f2;
+    --Soft-Black: #1c1c1c;
+    --Text-Muted: #777777;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body, html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.main-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* --- NAVBAR --- */
+
+.navbar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s ease,
+                padding 0.5s ease,
+                background 0.5s ease;
+}
+
+.navbar-container.nav-fade-out {
+    opacity: 0;
+    transform: translateY(0);
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.navbar-container.nav-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+    padding: 30px 0 !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 1, 1), opacity 0.1s linear;
+}
+
+.navbar-container.nav-logo-only {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 15px 0;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.navbar-container:not(.at-top) nav {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease;
+}
+
+.navbar-container.nav-logo-only .title {
+    margin-bottom: 0;
+    transform: scale(0.85);
+    color: var(--Obsidian-Black);
+}
+
+.title {
+    font-family: 'Cormorant', serif;
+    font-weight: 300;
+    font-size: 2.5rem;
+    letter-spacing: 10px;
+    margin: 0 0 15px 0;
+    color: var(--Obsidian-Black);
+    transition: all 0.6s ease;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    margin: 0;
+    transition: opacity 0.4s ease;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--Stone-Grey);
+    margin: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.6;
+}
+
+.nav-links a.active-link {
+    color: var(--Cognac-Gold);
+    border-bottom: 1px solid var(--Cognac-Gold);
+    padding-bottom: 2px;
+}
+
+/* --- HERO --- */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('/src/assets/img-entrance/marco-priore-OqDWiosyKVw-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+    transition: transform 10s ease;
+}
+
+.hero-section:hover .hero-image {
+    transform: scale(1.0);
+}
+
+/* --- SECTION MAISON --- */
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-maison {
+    padding: 160px 0 140px;
+    text-align: center;
+    background-color: var(--Pure-White);
+}
+
+.section-tag {
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-size: 0.75rem;
+    color: var(--Cognac-Gold);
+    display: block;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-family: 'Cormorant', serif;
+    font-size: 3.8rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    color: var(--Obsidian-Black);
+    line-height: 1.1;
+    letter-spacing: 1px;
+}
+
+.section-description {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--Text-Muted);
+    max-width: 600px;
+    margin: 0 auto 50px;
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+}
+
+.link-explore {
+    text-decoration: none;
+    color: var(--Cognac-Gold);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    border-bottom: 1px solid var(--Cognac-Gold);
+    padding-bottom: 6px;
+    transition: opacity 0.3s ease, letter-spacing 0.4s ease;
+}
+
+/* --- SECTION MASTERPIECE --- */
+
+.section-masterpiece {
+    width: 100%;
+    height: 85vh;
+}
+
+.split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+}
+
+.split-image {
+    background-image: url('/src/assets/img-entrance/tai-oli-h6QSZVPXnC0-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    transition: transform 10s ease;
+}
+
+.split-image:hover {
+    transform: scale(1.03);
+}
+
+.split-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 12%;
+    background-color: var(--Obsidian-Black);
+    color: var(--Pure-White);
+}
+
+.split-content h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 2.6rem;
+    font-weight: 300;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+.split-content p {
+    font-family: 'Cormorant', serif;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--Parchment);
+    opacity: 0.75;
+}
+
+.btn-dark {
+    margin-top: 40px;
+    padding: 16px 0;
+    background: transparent;
+    color: var(--Pure-White);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+}
+
+.btn-dark:hover {
+    background: var(--Pure-White);
+    color: var(--Obsidian-Black);
+    border-color: var(--Pure-White);
+}
+
+/* --- SECTION DETAILS CLUB --- */
+
+.section-details-club {
+    padding: 140px 5%;
+    background-color: var(--Pure-White);
+}
+
+.club-border-box {
+    max-width: 1100px;
+    margin: 0 auto;
+    border: 1px solid rgba(64, 1, 6, 0.2);
+    padding: 90px 60px;
+    text-align: center;
+    position: relative;
+}
+
+.club-border-box::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(64, 1, 6, 0.07);
+    pointer-events: none;
+}
+
+.club-icon-top {
+    font-size: 1.6rem;
+    color: var(--Cognac-Gold);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.club-tag {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.75rem;
+    color: var(--Cognac-Gold);
+    margin-bottom: 20px;
+}
+
+.club-title {
+    font-family: 'Cormorant', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    margin-bottom: 80px;
+    letter-spacing: 2px;
+}
+
+.club-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: 80px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 60px;
+}
+
+.info-item {
+    padding: 0 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.info-item:last-child {
+    border-right: none;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--Cognac-Gold);
+    margin-bottom: 18px;
+}
+
+.info-value {
+    font-family: 'Cormorant', serif;
+    font-size: 1.25rem;
+    color: var(--Stone-Grey);
+    font-weight: 300;
+}
+
+.btn-archive {
+    background: var(--Obsidian-Black);
+    color: var(--Pure-White);
+    border: 1px solid var(--Obsidian-Black);
+    padding: 18px 60px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-archive:hover {
+    background: transparent;
+    color: var(--Obsidian-Black);
+}
+
+/* --- SECTION GEOGRAPHY --- */
+
+.section-geography {
+    padding: 140px 5%;
+    text-align: center;
+}
+
+.geography-main-title {
+    font-family: 'Cormorant', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 70px;
+    letter-spacing: 3px;
+    font-style: italic;
+}
+
+.geography-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr;
+    gap: 16px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.geo-img-wrapper {
+    position: relative;
+    height: 680px;
+    overflow: hidden;
+}
+
+.geo-img-wrapper img,
+.geo-side-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 10s ease;
+}
+
+.geo-img-wrapper:hover img,
+.geo-side-img:hover img {
+    transform: scale(1.04);
+}
+
+.geo-side-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.geo-side-img {
+    height: calc(340px - 8px);
+    overflow: hidden;
+}
+
+/* --- SECTION EXPERIENCE --- */
+
+.section-experience {
+    height: 75vh;
+    background-color: var(--Obsidian-Black);
+    color: var(--Pure-White);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.section-experience::before {
+    content: '⚜';
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: var(--Cognac-Gold);
+    opacity: 0.5;
+}
+
+.experience-container {
+    max-width: 680px;
+}
+
+.experience-title {
+    font-family: 'Cormorant', serif;
+    font-size: 3.8rem;
+    font-weight: 300;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    line-height: 1.1;
+}
+
+.experience-container p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--Parchment);
+    opacity: 0.7;
+    font-family: 'Cormorant', serif;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.btn-outline {
+    margin-top: 50px;
+    padding: 18px 50px;
+    background: transparent;
+    color: var(--Pure-White);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-outline:hover {
+    background: var(--Pure-White);
+    color: var(--Obsidian-Black);
+    border-color: var(--Pure-White);
+}
+
+/* --- FOOTER --- */
+
+.footer-simple {
+    padding: 80px 0;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #bbb;
+    text-transform: uppercase;
+    background-color: var(--Pure-White);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* --- RESPONSIVE --- */
+
+@media (min-width: 1440px) {
+    .container { max-width: 1100px; }
+    .section-title { font-size: 4.8rem; }
+    .geography-grid { max-width: 1500px; }
+}
+
+@media (max-width: 1024px) {
+    .section-title { font-size: 3rem; }
+    .geography-grid { grid-template-columns: 1.2fr 1fr; }
+    .club-info-grid { grid-template-columns: repeat(2, 1fr); }
+    .geo-img-wrapper { height: 500px; }
+    .geo-side-img { height: 242px; }
+    .club-border-box { padding: 70px 40px; }
+    .info-item:nth-child(2) { border-right: none; }
+    .info-item:nth-child(3) { border-top: 1px solid rgba(0,0,0,0.06); padding-top: 40px; margin-top: 40px; }
+    .info-item:nth-child(4) { border-top: 1px solid rgba(0,0,0,0.06); padding-top: 40px; margin-top: 40px; border-right: none; }
+}
+
+@media (max-width: 768px) {
+    .title { font-size: 1.8rem; letter-spacing: 6px; }
+    .nav-links { gap: 15px; }
+    .nav-links a { margin: 10px; font-size: 0.75rem; }
+    .section-maison,
+    .section-details-club,
+    .section-geography { padding: 80px 20px; }
+    .section-title { font-size: 2.5rem; }
+    .section-masterpiece { height: auto; }
+    .split-grid { grid-template-columns: 1fr; }
+    .split-image { height: 400px; }
+    .split-content { padding: 60px 30px; }
+    .split-content h3 { font-size: 2.2rem; }
+    .geography-grid { grid-template-columns: 1fr; }
+    .geo-img-wrapper { height: 400px; }
+    .geo-side-cards { flex-direction: row; height: 200px; }
+    .geo-side-img { width: 50%; height: 100%; }
+    .club-border-box { padding: 50px 20px; }
+    .club-border-box::before { display: none; }
+    .club-title { font-size: 1.8rem; margin-bottom: 40px; }
+    .club-info-grid { grid-template-columns: 1fr; border-top: none; padding-top: 0; }
+    .info-item { border-right: none; border-top: none !important; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.06); margin-top: 0 !important; }
+    .info-item:last-child { border-bottom: none; }
+    .experience-title { font-size: 2.5rem; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 1.4rem; letter-spacing: 4px; }
+    .navbar-container.at-top .nav-links { display: none; }
+    .section-title { font-size: 2rem; }
+    .geo-side-cards { flex-direction: column; height: auto; }
+    .geo-side-img { width: 100%; height: 250px; }
+    .btn-dark,
+    .btn-archive,
+    .btn-outline { width: 100%; }
+}
