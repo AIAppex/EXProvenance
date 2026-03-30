@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Entrance from './containers/Entrance';
 import Heritage from './containers/Heritage/heritage';
 import Cellar from './containers/Cellar/cellar';
@@ -7,7 +7,7 @@ import Latelier from './containers/Checkout/latelier';
 
 function App() {
   return (
-    <Router basename="/EXProvenance/">
+    <Router>
       <Routes>
         <Route path="/" element={<Entrance />} />
         <Route path="/heritage" element={<Heritage />} />
