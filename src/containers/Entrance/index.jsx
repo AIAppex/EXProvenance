@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import vineyard from '../../assets/img-entrance/vineyard.jpg'
+import blackWine from '../../assets/img-entrance/black-wine.jpg'
+import luxuryWine from '../../assets/img-entrance/luxury-wine.jpg'
 import './entrance.css';
 
 function Entrance() {
@@ -111,15 +114,15 @@ function Entrance() {
                 <div className="geography-grid">
                     <div className="geo-main-card">
                         <div className="geo-img-wrapper">
-                            <img src="/src/assets/img-entrance/vineyard.jpg" alt="Geography Landscape" />
+                            <img src={vineyard} alt="Geography Landscape" />
                         </div>
                     </div>
                     <div className="geo-side-cards">
                         <div className="geo-side-img">
-                            <img src="/src/assets/img-entrance/black-wine.jpg" alt="Detail" />
+                         <img src={blackWine} alt="Detail" />
                         </div>
                         <div className="geo-side-img">
-                            <img src="/src/assets/img-entrance/luxury-wine.jpg" alt="Estate" />
+                            <img src={luxuryWine} alt="Estate" />
                         </div>
                     </div>
                 </div>

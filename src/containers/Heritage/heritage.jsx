@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import barril from '../../assets/img-heritage/barril.jpg';
+import grapes from '../../assets/img-heritage/grapes.jpg';
+import luxuryWineHeritage from '../../assets/img-heritage/luxury-wine-heritage.jpg';
 import './heritage.css';
 
 function Heritage() {
@@ -70,13 +73,13 @@ function Heritage() {
             <section className="heritage-visual-narrative">
                 <div className="heritage-bw-grid">
                     <div className="heritage-bw-item big">
-                        <img src="/src/assets/img-heritage/barril.jpg" alt="Legacy" className="heritage-grayscale" />
+                        <img src={barril} alt="Legacy" className="heritage-grayscale" />
                     </div>
                     <div className="heritage-bw-item">
-                        <img src="/src/assets/img-heritage/grapes.jpg" alt="Craft" className="heritage-grayscale" />
+                        <img src={grapes} alt="Craft" className="heritage-grayscale" />
                     </div>
                     <div className="heritage-bw-item">
-                        <img src="/src/assets/img-heritage/luxury-wine-heritage.jpg" alt="Object" className="heritage-grayscale" />
+                        <img src={luxuryWineHeritage} alt="Object" className="heritage-grayscale" />
                     </div>
                 </div>
 
