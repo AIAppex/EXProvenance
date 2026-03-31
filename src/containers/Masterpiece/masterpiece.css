@@ -462,7 +462,8 @@ body, html {
 
 @media (max-width: 480px) {
     .title { font-size: 1.4rem; letter-spacing: 4px; }
-    .navbar-container.at-top .nav-links { display: none; }
+    .navbar-container.at-top .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+    .navbar-container.at-top .nav-links a { margin: 4px 6px; font-size: 0.65rem; letter-spacing: 1px; }
     .btn-finalize-private { padding: 18px 20px; letter-spacing: 3px; }
     .btn-finalize-private:hover { letter-spacing: 4px; }
 }
