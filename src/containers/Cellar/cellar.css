@@ -150,6 +150,24 @@ body, html {
     background: var(--Pure-White);
 }
 
+.cellar-exchange-tag {
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+    font-family: 'Cormorant', serif;
+}
+
+.wine-brand {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--Cognac-Gold);
+    margin-bottom: 8px;
+}
+
 .main-quote {
     font-family: 'Cormorant', serif;
     font-size: 1.5rem;

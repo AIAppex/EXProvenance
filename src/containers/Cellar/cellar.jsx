@@ -2,6 +2,26 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './cellar.css';
 
+const CATEGORIES = [
+    { id: 'all',              label: 'The Archive',   filter: null },
+    { id: 'fragrances',      label: 'Parfumerie',    filter: ['fragrances'] },
+    { id: 'watches',         label: 'Horlogerie',    filter: ['mens-watches', 'womens-watches'] },
+    { id: 'womens-dresses',  label: 'Haute Couture', filter: ['womens-dresses'] },
+    { id: 'sunglasses',      label: 'Lunetterie',    filter: ['sunglasses'] },
+    { id: 'womens-bags',     label: 'Maroquinerie',  filter: ['womens-bags'] },
+];
+
+const ALLOWED = CATEGORIES.flatMap(c => c.filter ?? []);
+
+const normalizeProduct = (p, rate) => ({
+    id: p.id,
+    title: p.title,
+    price: p.price * rate,
+    image: p.thumbnail,
+    category: p.category,
+    brand: p.brand ?? null,
+});
+
 function Cellar() {
     const [status, setStatus] = useState('at-top');
     const [lastScroll, setLastScroll] = useState(0);
@@ -15,64 +35,54 @@ function Cellar() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        fetch('https://fakestoreapi.com/products')
+        fetch('https://dummyjson.com/products?limit=194')
             .then(res => res.json())
-            .then(data => {
-                const normalizedData = data.map(p => ({
-                    ...p,
-                    price: p.price * EURO_CONVERSION
-                }));
-                setProducts(normalizedData);
-                setFiltered(normalizedData);
+            .then(({ products: data }) => {
+                const normalized = data
+                    .filter(p => ALLOWED.includes(p.category))
+                    .map(p => normalizeProduct(p, EURO_CONVERSION));
+                setProducts(normalized);
+                setFiltered(normalized);
                 setLoading(false);
             })
-            .catch(err => console.error("Erro ao acessar a adega:", err));
+            .catch(err => console.error('Erro ao acessar o exchange:', err));
     }, []);
 
     useEffect(() => {
         const handleScroll = () => {
-            const currentScroll = window.scrollY;
-            const heroHeight = window.innerHeight;
+            const current = window.scrollY;
+            const hero = window.innerHeight;
 
-            if (currentScroll <= 10) {
-                setStatus('at-top');
-            } else if (currentScroll > lastScroll) {
-                if (currentScroll < heroHeight) {
-                    setStatus('heritage-nav-fade-out');
-                } else {
-                    setStatus('heritage-nav-hidden');
-                }
-            } else {
-                setStatus('heritage-nav-logo-only');
-            }
+            if (current <= 10) setStatus('at-top');
+            else if (current > lastScroll) setStatus(current < hero ? 'heritage-nav-fade-out' : 'heritage-nav-hidden');
+            else setStatus('heritage-nav-logo-only');
 
-            setLastScroll(currentScroll);
+            setLastScroll(current);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScroll]);
 
-    const formatCurrency = (val) => {
-        return new Intl.NumberFormat('de-DE', {
-            style: 'currency',
-            currency: 'EUR',
-        }).format(val);
-    };
+    const formatCurrency = val =>
+        new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(val);
 
     const handleFilter = (cat) => {
-        setActiveFilter(cat);
-        setFiltered(cat === 'all' ? products : products.filter(p => p.category === cat));
+        setActiveFilter(cat.id);
+        setFiltered(cat.filter ? products.filter(p => cat.filter.includes(p.category)) : products);
     };
 
-    const handleAllocation = (item) => {
+    const handleAllocation = (item) =>
         navigate('/masterpiece', { state: { selectedProduct: item } });
-    };
+
+    const availableCategories = CATEGORIES.filter(cat =>
+        !cat.filter || cat.filter.some(f => products.some(p => p.category === f))
+    );
 
     return (
         <div className="cellar-luxury-wrapper">
             <header className={`heritage-navbar-container ${status}`}>
-                <h1 className="heritage-title" onClick={() => navigate('/')} style={{cursor: 'pointer'}}>PROVENANCE</h1>
+                <h1 className="heritage-title" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>PROVENANCE</h1>
                 <nav className="heritage-nav-menu">
                     <ul className="heritage-nav-links">
                         <li><Link to='/heritage'>La Maison</Link></li>
@@ -85,31 +95,27 @@ function Cellar() {
 
             <section className="cellar-hero-statuesque">
                 <div className="cellar-hero-content">
-                    <h2 className="cellar-title-large">RARE CASK Collection</h2>
+                    <p className="cellar-exchange-tag">PROVENANCE EXCHANGE</p>
+                    <h2 className="cellar-title-large">MAISON DE LUXE</h2>
                 </div>
             </section>
 
             <section className="cellar-manifesto-quote">
                 <div className="quote-container">
                     <p className="main-quote">
-                        Whilst the singularity of a Rare Cask remains a gift of providence, the mastery of its inception is a legacy of sacred transmission.
+                        L'excellence ne se trouve pas — elle se reconnaît. Chaque pièce de la Provenance Exchange
+                        est sélectionnée selon les critères les plus stricts de la tradition et du raffinement.
                     </p>
-                    <cite className="quote-author">- LES ALLIANCES ÉLUES</cite>
+                    <cite className="quote-author">- PROVENANCE EXCHANGE, EST. 1924</cite>
                 </div>
             </section>
 
             <nav className="cellar-filter-nav">
-                {[
-                    { id: 'all', label: 'The Archive' },
-                    { id: "women's clothing", label: "L'Élégance Féminine" },
-                    { id: "men's clothing", label: "Heritage Apparel" },
-                    { id: "jewelery", label: "Fine Ornaments" },
-                    { id: "electronics", label: "Instruments" }
-                ].map(cat => (
+                {availableCategories.map(cat => (
                     <button
                         key={cat.id}
                         className={activeFilter === cat.id ? 'active' : ''}
-                        onClick={() => handleFilter(cat.id)}
+                        onClick={() => handleFilter(cat)}
                     >
                         {cat.label}
                     </button>
@@ -117,15 +123,20 @@ function Cellar() {
             </nav>
 
             <section className="cellar-inventory-grid">
-                {loading ? <div className="cellar-loader">Seeking Excellence...</div> : (
+                {loading ? (
+                    <div className="cellar-loader">Seeking Excellence...</div>
+                ) : filtered.length === 0 ? (
+                    <div className="cellar-loader">— Collection épuisée —</div>
+                ) : (
                     <div className="cellar-exhibit-grid">
-                        {filtered.map((item) => (
+                        {filtered.map(item => (
                             <div key={item.id} className="artifact-card">
                                 <div className="wine-visual-frame">
                                     <span className="wine-ref-number">№ {item.id}</span>
                                     <img src={item.image} alt={item.title} className="product-api-image" />
                                 </div>
                                 <div className="wine-details-minimal">
+                                    {item.brand && <span className="wine-brand">{item.brand}</span>}
                                     <h3 className="wine-title-refined">{item.title}</h3>
                                     <span className="wine-price-clean">{formatCurrency(item.price)}</span>
                                     <button
@@ -142,7 +153,7 @@ function Cellar() {
             </section>
 
             <footer className="heritage-footer-simple">
-                <p>© 2026 PROVENANCE. Pureté et Tradition.</p>
+                <p>© 2026 PROVENANCE EXCHANGE. Pureté et Tradition.</p>
             </footer>
         </div>
     );
