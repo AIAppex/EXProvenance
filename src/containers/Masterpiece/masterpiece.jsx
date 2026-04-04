@@ -92,8 +92,10 @@ function Masterpiece() {
 
                                 <h2 className="alloc-title">{product.title}</h2>
                                 <p className="alloc-desc">
-                                    A rare acquisition from the Provenance archives. This selection represents the pinnacle
-                                    of ancestral craftsmanship, curated for your lineage.
+                                    {product.brand
+                                        ? `Une création exclusive de ${product.brand}, sélectionnée par les archives de la Provenance Exchange pour sa singularité et son excellence.`
+                                        : `Une pièce rare issue des archives de la Provenance Exchange, sélectionnée selon les critères les plus stricts de la tradition.`
+                                    }
                                 </p>
 
                                 <div className="alloc-meta">
